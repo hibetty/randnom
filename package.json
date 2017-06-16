@@ -19,7 +19,9 @@
   "author": "Betty Lin",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "node-yelp-fusion": "^1.0.4"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
