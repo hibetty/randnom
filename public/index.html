@@ -3,15 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>Randnom</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <h1 id="hello">hello world!</h1>
-  <form action="/food" method="post">
+  <form action="/" method="post">
+  <div id="locationInput">
     <label htmlFor="userLocation">Location</label>
       <input type="text" id="userLocation" name="userLocation" placeholder="Enter an address, city, or zip" />
-    <button>click me</button>
+  </div>
+    <button onclick="function(e){e.preventDefault()}">click me</button>
   </form>
 
   <script src="/script.js"></script>
+  <script>getGeolocation()</script>
 </body>
 </html>

@@ -15,7 +15,7 @@ app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-app.post('/food', (req, res, next) => {
+app.post('/', (req, res, next) => {
   let userLocation = req.body.userLocation;
 
   const findOneRestaurant = (obj) => {
@@ -24,9 +24,14 @@ app.post('/food', (req, res, next) => {
     return obj.businesses[randIdx];
   };
 
-  if (userLocation === ''){ // USE BROWSER GEOLOCATION HERE
-    yelp.search('term=food&latitude=40.705076&longitude=-74.0113487&radius=3500&price=1,2&open_now=true')
-      .then(result => res.json(result))
+  if (userLocation.indexOf('@') !== -1){ //LAT-LONG
+    let coords = userLocation.split('@');
+
+    yelp.search(`term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
+      .then(result => {
+    let restaurant = findOneRestaurant(result);
+    res.json(restaurant);
+  })
       .catch(console.error);
   } else { // USER INPUT
     yelp.search(`term=food&location=${userLocation}&radius=3500&price=1,2&open_now=true`)

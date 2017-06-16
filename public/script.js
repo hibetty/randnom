@@ -1,8 +1,8 @@
 const positionSuccess = position => {
-  console.log({lat: position.coords.longitude,
-    long: position.coords.longitude});
-    return {lat: position.coords.longitude,
-    long: position.coords.longitude};
+  let coordinates = position.coords.latitude + '@' +
+    position.coords.longitude;
+
+  document.getElementById('userLocation').value = coordinates;
 };
 
 const positionError = error => {
