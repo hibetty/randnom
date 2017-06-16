@@ -20,16 +20,21 @@ nunjucks.configure('views', {noCache: true});
 
 // routes
 app.get('/', (req, res, next) => {
-  res.render('index.html');
+  res.render('button.html');
 });
 
 app.post('/', (req, res, next) => {
   let userLocation = req.body.userLocation;
 
-  const findOneRestaurant = (obj) => {
+  const findOneRestaurant = obj => {
     let arrLen = obj.businesses.length;
     let randIdx = Math.floor(Math.random() * arrLen);
     return obj.businesses[randIdx];
+  };
+
+  const returnRestaurant = result => {
+    let restaurant = findOneRestaurant(result);
+    res.json(restaurant);
   };
 
   // user location is lat/long
@@ -37,20 +42,14 @@ app.post('/', (req, res, next) => {
     let coords = userLocation.split('@');
 
     yelp.search(`term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
-      .then(result => {
-        let restaurant = findOneRestaurant(result);
-        res.json(restaurant);
-      })
+      .then(returnRestaurant)
       .catch(console.error);
   }
   // user location is manual input
   else {
     yelp.search(`term=food&location=${userLocation}&radius=3500&price=1,2&open_now=true`)
-      .then(result => {
-        let restaurant = findOneRestaurant(result);
-        res.json(restaurant);
-    })
-    .catch(console.error);
+      .then(returnRestaurant)
+      .catch(console.error);
   }
 });
 

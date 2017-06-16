@@ -7,15 +7,6 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico"/>
 </head>
 <body>
-  <form action="/" method="post">
-  <div id="locationInput">
-    <label htmlFor="userLocation">Location</label>
-      <input type="text" id="userLocation" name="userLocation" placeholder="Enter an address, city, or zip" />
-  </div>
-    <button>I'm feeling hungry</button>
-  </form>
-
-  <script src="/script.js"></script>
-  <script>getGeolocation()</script>
+  {% block content %}{% endblock %}
 </body>
 </html>

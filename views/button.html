@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>randnom</h1>
+
+<form action="/" method="post">
+<div id="locationInput">
+  <label htmlFor="userLocation">Location</label>
+    <input type="text" id="userLocation" name="userLocation" placeholder="Enter an address, city, or zip" />
+</div>
+  <button>I'm feeling hungry</button>
+</form>
+
+  <script src="/script.js"></script>
+  <script>getGeolocation()</script>
+{% endblock %}
