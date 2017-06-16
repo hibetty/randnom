@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Yelp = require('node-yelp-fusion');
 const nunjucks = require('nunjucks');
+const secret = require('./secret');
 
-const yelp = new Yelp({id: 'Yds_fV9S4-XDnKgTI2LPpw', secret: 'M1fEXT0FiUdJndTtaB7qaMKD3YisibufWwm0g1ha5Dit3MPXljZTuJK0y9Myu8NJ' });
+const yelp = new Yelp(secret);
 const app = express();
 
 // body parser
@@ -34,7 +35,7 @@ app.post('/', (req, res, next) => {
 
   const returnRestaurant = result => {
     let restaurant = findOneRestaurant(result);
-    res.json(restaurant);
+    res.render('result', {restaurant: restaurant});
   };
 
   // user location is lat/long
