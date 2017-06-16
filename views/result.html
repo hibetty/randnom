@@ -1,15 +1,22 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1>{{ restaurant.name }}</h1>
-<img src="{{ restaurant.image_url }}"/>
+  <h1>{{ restaurant.name }}</h1>
+  <img class="foodImg" src="{{ restaurant.image_url }}"/>
 
-<ul>
-  {% for category in restaurant.categories %}
-  <li>{{ category.title }}</li>
-  {% endfor %}
-</ul>
 
-<p>Yelp rating: {{ restaurant.rating }}</p>
-<p>Price: {{ restaurant.price }}</p>
+  <ul>
+    {% for category in restaurant.categories %}
+    <li>{{ category.title }}</li>
+    {% endfor %}
+  </ul>
+
+  <p>Yelp rating: {{ restaurant.rating }}</p>
+  <p>Price: {{ restaurant.price }}</p>
+  <p>Address:
+    {% for line in restaurant.location.display_address %}
+    {{ line }}<br/>
+    {% endfor %}
+  </p>
+  <p><a href="{{ restaurant.url }}">View on Yelp</a></p>
 {% endblock %}
