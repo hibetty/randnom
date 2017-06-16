@@ -1,6 +1,7 @@
 body {
   font-family: 'Raleway', Helvetica, Arial, sans-serif;
   background-image: url('food.png');
+  padding: 3px;
 }
 
 a {
@@ -45,8 +46,12 @@ input {
   color: #DDD;
 }
 
-#button:hover, #button:active {
+#button:hover, #button:active, #button:focus {
   transform: translateY(12px);
+}
+
+#button:focus {
+  outline: none;
 }
 
 #oval {
@@ -72,7 +77,6 @@ input {
 .container, .buttonGroup {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
@@ -82,5 +86,13 @@ input {
 
 .foodImg {
   width: 25%;
-  border-radius: 10%;
+  border-radius: 2%;
+  border: 10px solid #fff;
+  margin: 30px;
+}
+
+@media (max-width: 900px) {
+  .foodImg {
+    width: 75%;
+  }
 }
