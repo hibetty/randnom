@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-//const axios = require('axios');
 const bodyParser = require('body-parser');
 const Yelp = require('node-yelp-fusion');
 
@@ -10,23 +9,33 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  next();
-});
-
 app.use(express.static('public'));
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
-app.get('/food', (req, res, next) => {
-  yelp.search('term=Biryani&location=New York')
-    .then(function(result){
-           res.json(result);
-        });
+app.post('/food', (req, res, next) => {
+  let userLocation = req.body.userLocation;
+
+  const findOneRestaurant = (obj) => {
+    let arrLen = obj.businesses.length;
+    let randIdx = Math.floor(Math.random() * arrLen);
+    return obj.businesses[randIdx];
+  };
+
+  if (userLocation === ''){ // USE BROWSER GEOLOCATION HERE
+    yelp.search('term=food&latitude=40.705076&longitude=-74.0113487&radius=3500&price=1,2&open_now=true')
+      .then(result => res.json(result))
+      .catch(console.error);
+  } else { // USER INPUT
+    yelp.search(`term=food&location=${userLocation}&radius=3500&price=1,2&open_now=true`)
+  .then(result => {
+    let restaurant = findOneRestaurant(result);
+    res.json(restaurant);
+  })
+  .catch(console.error);
+  }
 });
 
 app.listen(8080, () => console.log('Listening on port 8080!'));

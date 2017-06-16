@@ -6,7 +6,9 @@
 </head>
 <body>
   <h1 id="hello">hello world!</h1>
-  <form action="/food" method="get">
+  <form action="/food" method="post">
+    <label htmlFor="userLocation">Location</label>
+      <input type="text" id="userLocation" name="userLocation" placeholder="Enter an address, city, or zip" />
     <button>click me</button>
   </form>
 
