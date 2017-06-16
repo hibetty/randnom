@@ -1,18 +1,26 @@
 const express = require('express');
-const path = require('path');
 const bodyParser = require('body-parser');
 const Yelp = require('node-yelp-fusion');
+const nunjucks = require('nunjucks');
 
 const yelp = new Yelp({id: 'Yds_fV9S4-XDnKgTI2LPpw', secret: 'M1fEXT0FiUdJndTtaB7qaMKD3YisibufWwm0g1ha5Dit3MPXljZTuJK0y9Myu8NJ' });
 const app = express();
 
+// body parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// serve static files
 app.use(express.static('public'));
 
+// nunjucks templating setup
+app.engine('html', nunjucks.render);
+app.set('view engine', 'html');
+nunjucks.configure('views', {noCache: true});
+
+// routes
 app.get('/', (req, res, next) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'));
+  res.render('index.html');
 });
 
 app.post('/', (req, res, next) => {
@@ -24,22 +32,25 @@ app.post('/', (req, res, next) => {
     return obj.businesses[randIdx];
   };
 
-  if (userLocation.indexOf('@') !== -1){ //LAT-LONG
+  // user location is lat/long
+  if (userLocation.indexOf('@') !== -1){
     let coords = userLocation.split('@');
 
     yelp.search(`term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
       .then(result => {
-    let restaurant = findOneRestaurant(result);
-    res.json(restaurant);
-  })
+        let restaurant = findOneRestaurant(result);
+        res.json(restaurant);
+      })
       .catch(console.error);
-  } else { // USER INPUT
+  }
+  // user location is manual input
+  else {
     yelp.search(`term=food&location=${userLocation}&radius=3500&price=1,2&open_now=true`)
-  .then(result => {
-    let restaurant = findOneRestaurant(result);
-    res.json(restaurant);
-  })
-  .catch(console.error);
+      .then(result => {
+        let restaurant = findOneRestaurant(result);
+        res.json(restaurant);
+    })
+    .catch(console.error);
   }
 });
 
