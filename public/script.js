@@ -1,4 +1,15 @@
+const hidePizza = () => {
+  var pizza = document.getElementById('loading');
+  pizza.style.display = 'none';
+};
+
+const showPizza = () => {
+  var pizza = document.getElementById('loading');
+  pizza.style.display = 'block';
+};
+
 const positionSuccess = position => {
+  setTimeout(hidePizza, 4000);
   let coordinates = position.coords.latitude + '@' +
     position.coords.longitude;
 
@@ -15,6 +26,7 @@ const positionError = error => {
 const getGeolocation = () => {
   const location = navigator.geolocation;
   if (location) {
+      showPizza()
     location.getCurrentPosition(positionSuccess, positionError);
   } else {
     console.log('geolocation unavailable');

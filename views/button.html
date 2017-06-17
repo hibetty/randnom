@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>randnom</h1>
-
+<div id="loading"><img src="pizza.gif"/>LOADING</div>
 <form action="/" method="post">
 <div id="locationInput">
   <label htmlFor="userLocation">Location</label>
@@ -16,5 +16,5 @@
 </form>
 
   <script src="/script.js"></script>
-  <script>getGeolocation()</script>
+  <script>getGeolocation();</script>
 {% endblock %}

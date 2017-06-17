@@ -91,6 +91,15 @@ input {
   margin: 30px;
 }
 
+#loading {
+  display: none;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  z-index: 5;
+}
+
 @media (max-width: 900px) {
   .foodImg {
     width: 75%;
