@@ -26,7 +26,6 @@ const positionError = error => {
 const getGeolocation = () => {
   const location = navigator.geolocation;
   if (location) {
-      showPizza()
     location.getCurrentPosition(positionSuccess, positionError);
   } else {
     console.log('geolocation unavailable');
