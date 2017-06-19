@@ -38,8 +38,15 @@ app.post('/', (req, res, next) => {
     res.render('result', {restaurant: restaurant});
   };
 
+  // set a default location
+  if (userLocation === ''){
+    yelp.search(`term=food&location=New York&radius=3500&price=1,2&open_now=true`)
+      .then(returnRestaurant)
+      .catch(console.error);
+  }
+
   // user location is lat/long
-  if (userLocation.indexOf('@') !== -1){
+  else if (userLocation.indexOf('@') !== -1){
     let coords = userLocation.split('@');
 
     yelp.search(`term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
