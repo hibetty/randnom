@@ -44,7 +44,12 @@ app.post('/', (req, res, next) => {
 
     yelp.search(`term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
       .then(returnRestaurant)
-      .catch(console.error);
+      .catch(err => {
+        let latLongErr = document.getElementById('latLongErr');
+        latLongErr.style.display('block');
+        console.error(err);
+
+      });
   }
   // user location is manual input
   else {

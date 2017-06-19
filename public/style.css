@@ -91,8 +91,24 @@ input {
   margin: 30px;
 }
 
+#latLongErr {
+  display: none;
+  width: 25%;
+  padding: 1%;
+  border-radius: 10px;
+  text-align: center;
+  color: #000;
+  border: 1px solid #666;
+  background-color: rgba(102, 102, 102, 0.6);
+}
+
 @media (max-width: 900px) {
   .foodImg {
     width: 75%;
+  }
+
+  #latLongErr {
+  width: 85%;
+  padding: 2%;
   }
 }
