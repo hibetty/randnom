@@ -6,6 +6,7 @@ const secret = require('./secret');
 
 const yelp = new Yelp(secret);
 const app = express();
+const PORT = process.env.PORT;
 
 // body parser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,4 +62,4 @@ app.post('/', (req, res, next) => {
   }
 });
 
-app.listen(8080, () => console.log('Listening on port 8080!'));
+app.listen(PORT, () => console.log('Listening on port ' + PORT + '!'));
