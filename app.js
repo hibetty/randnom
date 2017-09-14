@@ -6,7 +6,7 @@ const secret = require('./secret');
 
 const yelp = new Yelp(secret);
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8080;
 
 // body parser
 app.use(bodyParser.urlencoded({ extended: true }));
