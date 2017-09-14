@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Yelp = require('node-yelp-fusion');
 const nunjucks = require('nunjucks');
-const secret = require('./secret');
+const secret = require('./secret') || {id: process.env.YELP_ID, secret: process.env.YELP_SECRET};
 
 const yelp = new Yelp(secret);
 const app = express();
