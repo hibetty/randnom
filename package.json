@@ -21,8 +21,8 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "node-yelp-fusion": "^1.0.4",
-    "nunjucks": "^3.0.1"
+    "nunjucks": "^3.0.1",
+    "yelp-api": "^1.0.3"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
