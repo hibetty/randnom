@@ -15,7 +15,7 @@ a:hover {
 }
 
 #locationInput {
-  display: none;
+  display: block;
 }
 
 label {

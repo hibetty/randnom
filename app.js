@@ -39,31 +39,14 @@ app.post('/', (req, res, next) => {
     res.render('result', {restaurant: restaurant});
   };
 
-  // set a default location
-  const params = [{term: 'food'}, {location: 'San Diego'}, {radius: '3500'}, {price: '1,2'}, {open_now: 'true'}];
-  if (userLocation === ''){
+  // yelp query based on user location input
+  const params = [{term: 'food'}, {location: userLocation}, {radius: '3500'}, {price: '1,2'}, {open_now: 'true'}];
     yelp.query('businesses/search', params)
       .then(data => {
         let dataObj = JSON.parse(data);
         returnRestaurant(dataObj);
     })
       .catch(console.error);
-  }
-
-  // user location is lat/long
-  else if (userLocation.indexOf('@') !== -1){
-    let coords = userLocation.split('@');
-
-    yelp.query('businesses/search', `term=food&latitude=${coords[0]}&longitude=${coords[1]}&radius=3500&price=1,2&open_now=true`)
-      .then(returnRestaurant)
-      .catch(console.error);
-  }
-  // user location is manual input
-  else {
-    yelp.query('businesses/search', `term=food&location=${userLocation}&radius=3500&price=1,2&open_now=true`)
-      .then(returnRestaurant)
-      .catch(console.error);
-  }
 });
 
 app.listen(PORT, () => console.log('Listening on port ' + PORT + '!'));
