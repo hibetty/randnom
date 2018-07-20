@@ -43,7 +43,10 @@ app.post('/', (req, res, next) => {
   const params = [{term: 'food'}, {location: 'San Diego'}, {radius: '3500'}, {price: '1,2'}, {open_now: 'true'}];
   if (userLocation === ''){
     yelp.query('businesses/search', params)
-      .then(console.log)
+      .then(data => {
+        let dataObj = JSON.parse(data);
+        returnRestaurant(dataObj);
+    })
       .catch(console.error);
   }
 
